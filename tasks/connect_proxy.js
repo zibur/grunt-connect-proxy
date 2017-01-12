@@ -9,6 +9,7 @@
 'use strict';
 var utils = require('../lib/utils');
 var _ = require('lodash');
+var HttpsProxyAgent = require('https-proxy-agent');
 
 module.exports = function(grunt) {
   grunt.registerTask('configureProxies', 'Configure any specified connect proxies.', function(config) {
@@ -55,6 +56,7 @@ module.exports = function(grunt) {
                     target: utils.getTargetUrl(proxyOption),
                     secure: proxyOption.secure,
                     xfwd: proxyOption.xforward,
+                    agent: proxyOption.agent ? new HttpsProxyAgent(proxyOption.agent) : undefined,
                     headers: {
                         host: proxyOption.host
                     },
